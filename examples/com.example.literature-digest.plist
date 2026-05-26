@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  macOS launchd agent template for the daily literature digest.
+
+  Replace before use:
+    __USERNAME__   your macOS short username (output of `whoami`)
+    __HOUR__       hour to run, in MACHINE-LOCAL time (e.g. 7 for 7am)
+    __MINUTE__     minute to run (e.g. 0)
+
+  Then install:
+    cp com.example.literature-digest.plist ~/Library/LaunchAgents/
+    launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/com.example.literature-digest.plist
+
+  launchd fires in machine-local time and runs on the next wake if the Mac was
+  asleep at the scheduled time. The install.sh script can generate this for you.
+-->
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.example.literature-digest</string>
+
+    <key>ProgramArguments</key>
+    <array>
+        <string>/bin/bash</string>
+        <string>/Users/__USERNAME__/.claude/skills/daily-literature-digest/scripts/run-digest.sh</string>
+    </array>
+
+    <key>StartCalendarInterval</key>
+    <dict>
+        <key>Hour</key>
+        <integer>__HOUR__</integer>
+        <key>Minute</key>
+        <integer>__MINUTE__</integer>
+    </dict>
+
+    <key>RunAtLoad</key>
+    <false/>
+
+    <key>EnvironmentVariables</key>
+    <dict>
+        <!-- Ensure claude + python3 are on PATH for the unattended run. -->
+        <key>PATH</key>
+        <string>/Users/__USERNAME__/.local/bin:/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin</string>
+        <!-- Optional overrides if your config lives outside the default location: -->
+        <!-- <key>DIGEST_CONFIG</key><string>/Users/__USERNAME__/literature-digest/daily-literature-digest.config.json</string> -->
+    </dict>
+
+    <key>StandardOutPath</key>
+    <string>/tmp/literature-digest.out.log</string>
+    <key>StandardErrorPath</key>
+    <string>/tmp/literature-digest.err.log</string>
+</dict>
+</plist>

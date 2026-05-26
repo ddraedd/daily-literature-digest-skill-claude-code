@@ -1,0 +1,22 @@
+{
+  "recipient_email": "you@example.com",
+  "crossref_mailto": "you@example.com",
+  "language": "en",
+  "timezone": "America/New_York",
+  "schedule_time": "09:00",
+  "output_dir": "daily-literature-digests",
+  "include_arxiv": true,
+  "rows": 20,
+  "arxiv_rows": 25,
+  "max_papers": 30,
+  "keyword_groups": [
+    {
+      "label": "your first topic",
+      "terms": ["exact phrase one", "exact phrase two"]
+    },
+    {
+      "label": "your second topic",
+      "terms": ["another keyword", "synonym or spelling variant"]
+    }
+  ]
+}

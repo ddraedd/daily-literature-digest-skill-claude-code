@@ -1,0 +1,34 @@
+# Secrets — never commit real SMTP credentials
+smtp.json
+*smtp*.json
+!examples/smtp.example.json
+.config/
+
+# Personal config (ship only the example)
+daily-literature-digest.config.json
+!examples/config.example.json
+
+# Generated digest archives / state / logs
+daily-literature-digests/
+literature digest/
+**/data/
+**/logs/
+**/fulltext-inbox/
+**/fulltext-summaries/
+state.json
+*.md.html
+.*.html
+*.docx
+
+# Installed launchd plist (generated per-user)
+com.*.literature-digest.plist
+!examples/com.example.literature-digest.plist
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# OS
+.DS_Store
